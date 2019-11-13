@@ -1,0 +1,23 @@
+h1 {
+    
+}
+
+$colorz: (
+    primary: #333333,
+    secondary: #2B2B2B,
+    white: #ffffff,
+    orange: #FC6D2B,
+    darkgrey: #707070,
+    complete: #2BFC83,
+    inprogress: #FFB936,
+    incomplete: #FF1212,
+    lightgrey: #cacaca
+);
+//sass is not working!!! it doesn't change the color even after installing a sass-loader
+
+@mixin infobox_mixin($border-radius, $border-color, $padding, $margin-bottom, $color) {
+    border: $border-radius solid $border-color;
+    padding: $padding;
+    margin-bottom: $margin-bottom;
+    color: $color;
+}
