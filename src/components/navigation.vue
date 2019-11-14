@@ -2,33 +2,18 @@
   <div>
     <v-navigation-drawer color="#666666" v-model="drawer" temporary app>
       <div v-if="currentUser">
+        <v-avatar
+        class="ml-5 mt-5"
+        size="200">
+          <v-img src="@/assets/img/dino.jpg"></v-img>
+        </v-avatar>
         <v-card
+            flat
+            color="#666666"
             class="mx-auto"
-            max-width="200"
+            max-width="250"
             tile
           >
-            <v-img
-              height="100%"
-              src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
-            >
-              <v-row
-                align="end"
-                class="fill-height"
-              >
-                <v-col
-                  align-self="start"
-                  class="pa-0"
-                  cols="12"
-                >
-                  <v-avatar
-                    class="profile"
-                    color="grey"
-                    size="65"
-                    tile
-                  >
-                    <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                  </v-avatar>
-                </v-col>
                 <v-col class="py-0">
                   <v-list-item
                     
@@ -40,22 +25,19 @@
                     </v-list-item-content>
                   </v-list-item>
                 </v-col>
-              </v-row>
-            </v-img>
-          </v-card>
-
+             </v-card>
       </div>
       
-      <ul>
+      <ul class="">
         <router-link tag="li" to="/"><v-icon color="#bbbbbb">home</v-icon>Home</router-link>
         <router-link tag="li" to="/menu"><v-icon color="#bbbbbb">directions_bike</v-icon>Products</router-link>
         <router-link tag="li" to="/basket"><v-icon color="#bbbbbb">shopping_cart</v-icon>Your Basket</router-link>
         <router-link tag="li" to="/about"><v-icon color="#bbbbbb">notes</v-icon>About</router-link>
-        <router-link tag="li" to="/register"><v-icon color="#bbbbbb">notes</v-icon>Register</router-link>
+        <router-link tag="li" to="/register"><v-icon color="#bbbbbb">account_box</v-icon>Register</router-link>
         <router-link tag="li" v-if="currentUser" to="/orders" class="complete--text"><v-icon color="complete">assignment</v-icon>Orders</router-link>
         <router-link v-if="currentUser" tag="li" to="/admin"><v-icon color="#bbbbbb">lock</v-icon>Admin</router-link>
-        <router-link tag="li"  to="/login"><v-icon color="#bbbbbb">vpn_key</v-icon>Login</router-link>
-        <v-btn  v-if="currentUser" style="margin:50px 0 0 65px; color:white;" small class="" tag="li" color="red" @click.prevent="signOut()">Sign Out</v-btn>
+        <router-link v-else tag="li"  to="/login"><v-icon color="#bbbbbb">vpn_key</v-icon>Login</router-link>
+        <v-btn  v-if="currentUser" style="margin:50px 0 0 65px; color:white;" medium class="" tag="li" color="red" @click.prevent="signOut()">Sign Out</v-btn>
       </ul>
     </v-navigation-drawer>
    

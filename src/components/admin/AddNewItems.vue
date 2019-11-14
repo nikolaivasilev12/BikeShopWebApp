@@ -10,7 +10,7 @@
           <v-text-field label="Price" required v-model="price"></v-text-field> 
           <v-file-input label="Image" @change="uploadImage"></v-file-input>
 
-          <v-btn color="complete" @click="addNewMenuItem()"  :disabled="btnDisable">Add Item</v-btn>
+          <v-btn class="mr-2" color="complete" @click="addNewMenuItem()"  :disabled="btnDisable">Add Item</v-btn>
           <v-btn color="incomplete">Cancel</v-btn>
         </div>
       </v-col>

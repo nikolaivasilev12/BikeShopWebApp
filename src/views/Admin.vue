@@ -17,24 +17,25 @@
 
 
     <v-row>
-      <v-col offset-md="1" md="5">
-        <h1>Admin</h1>
+      <v-col style="" offset-md="1" md="10">
+        <h1 class="display-1 text-left">Admin Panel</h1>
         <div class="pa-2" id="info">
           <v-simple-table id="menu-table">
             <thead>
               <tr>
-                <th class="text-left" style="width:40%;">
-                  Image
+                <th class="text-left" style="width:15%;">Image</th>
+                <th class="text-left" style="width:25%;">Name
                   <v-btn color="#777777" class="ml-5" small text to="/addNew">
                     <v-icon>add</v-icon>
                     <span style="padding:0 10px;">Add Item</span>
                   </v-btn>
                 </th>
-                <th class="text-left" style="width:25%;">Description</th>
-                <th class="text-left" style="width:15%;">Name</th>
+                <th class="text-left" style="width:30%;">Description</th>
                 <th class="text-left" style="width:15%;">Price</th>
-                <th class="text-left" style="width:15%;">Edit</th>
-                <th class="text-left" style="width:10%;">Remove</th>
+                <th class="text-left" style="width:10%;">Edit</th>
+                <th class="text-left" style="width:20%;">Remove</th>
+                <th class="text-left" style="width:5%;">
+                  <v-btn style="color:white;" small class="" color="red" @click.prevent="signOut()">Sign Out</v-btn></th>
               </tr>
             </thead>
             <tbody>
@@ -43,17 +44,17 @@
                   <v-img id="td_menuitem_img" v-bind:src="item.image" ></v-img>
                 </td>
                 <td>
-                  <span id="menu_item_description">{{ item.description }}</span>
+                  <span id="td_name">{{ item.name }}</span>
                 </td>
                 <td>
-                  <span id="td_name">{{ item.name }}</span>
+                  <span id="menu_item_description">{{ item.description }}</span>
                   <br />
                  
                 </td>
                
                 <td>{{ item.price + " $" }}</td>
                 <td>
-                  <v-btn small text @click.stop ="dialog = true" @click="editItem(item)">
+                  <v-btn  small text @click.stop ="dialog = true" @click="editItem(item)">
                     <v-icon color="#777777">edit</v-icon>
                   </v-btn>
                 </td>
@@ -104,6 +105,9 @@
 
 <script>
 import { dbMenuAdd } from "../../firebase";
+import firebase from 'firebase'
+import 'firebase/firestore'
+import store from '../store.js'
 
 export default {
   data() {
@@ -123,6 +127,14 @@ export default {
 
 
   methods: {
+     signOut() {
+        firebase.auth().signOut().then(() => {
+            alert('Logged Out')
+            this.$router.replace('/')
+        }).catch(error => {
+            alert(error)
+        })
+    },
     editItem(item) {
       this.item =item
       this.activeEditItem = item.id
@@ -193,18 +205,12 @@ export default {
 
 <style lang="scss" scoped>
 .col h1 {
-  @include infobox_mixin(
-    5px,
-    map-get($colorz, white),
-    10px,
-    5px,
-    map-get($colorz, white)
-  );
+  border: none;
   //I kinda got out of the previous struggles but I couldn't solve this. this is the  error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 16px;
   text-align: right;
+  font-family: 'Big Shoulders Text'!important;
 }
 .col:last-child h1 {
   text-align: left;
@@ -223,8 +229,8 @@ tr td {
   padding: 10x 10px 10px 16px;
 }
 #td_menuitem_img {
-  max-width: 50px;
-  max-height: 60px;
+  max-width: 75px;
+  max-height: 50px;
   padding: 0;
 }
 #menu_item_description {

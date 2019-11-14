@@ -67,14 +67,15 @@
             </thead>
             <tbody class="font-weight-light">
               <tr v-for="item in orderItems" :key="item.name">
-                <td >
+                <td class="pl-5" >
                   {{ item.orderNumber }}
                 </td>
-                <td class="py-3" style="margin:0;"><p v-for="subitem in item.orderLines" :key="subitem.id" > {{ subitem.quantity }} </p> </td>
-                <td class="py-3" style="margin:0;"><p v-for="subitem in item.orderLines" :key="subitem.id"> {{ subitem.name }}</p></td>
-                <td class="py-3" style="margin:0;"><p v-for="subitem in item.orderLines" :key="subitem.id">{{ subitem.price + "$" }} </p></td>
+                <td class="pt-3" style="margin:0;"><p v-for="subitem in item.orderLines" :key="subitem.id" > {{ subitem.quantity }} </p> </td>
+                <td class="pt-3" style="margin:0;"><p v-for="subitem in item.orderLines" :key="subitem.id"> {{ subitem.name }}</p></td>
+                <td class="pt-3" style="margin:0;"><p v-for="subitem in item.orderLines" :key="subitem.id">{{ subitem.price + "$" }} </p></td>
                  <td>
-                   <div id="status_box" class="orange">{{ item.status }}</div>
+                   
+                   <v-btn id="status_box" class="orange" @click="switchStage(item.id)" v-bind:class="item.status" >{{ item.status }}</v-btn>
                  </td>
                  <td>
                    <v-btn small text @click="addToBasket(item)">
@@ -107,7 +108,7 @@
 
 <script>
 
-import { dbOrders } from '../../firebase'
+import { dbMenuAdd, dbOrders } from '../../firebase'
 
 export default {
   data() {
@@ -142,10 +143,11 @@ export default {
     deleteOrderItem(id) {
       dbOrders.doc(id).delete().then( () => {
         console.log("deleted")
-      }).catch((error) => {
-
-      })
+      }).catch((error) => {})
     },
+    
+       
+
 
     addToBasket(item) {
     //  if(this.basket.find(itemInArray => item.name === itemInArray.name)) {
@@ -180,8 +182,24 @@ export default {
     reset() {
       this.basket = [];
     },
+    
+        switchStage(id) {
+
+        let selectedOrderItem = this.orderItems.filter(item => item.id === id) [0];
+        
+        if (selectedOrderItem.status === "inprogress") {
+            dbOrders.doc(id).update({status:"complete"})
+        }
+        else if (selectedOrderItem.status === "incomplete") {
+            dbOrders.doc(id).update({status:"inprogress"})
+        }
+        else if (selectedOrderItem.status === "complete") {
+            dbOrders.doc(id).update({status:"incomplete"})
+        }
+    }
+
   },
-  computed: {
+  computed: { 
     basket() {
      // return this.$store.state.basketItems
       return this.$store.getters.getBasketItems

@@ -4,6 +4,8 @@
       <v-flex flex-column style="margin-top:300px;" sm6 xs12 offset-sm1>
         <h2 id="header" class="display-3 font-weight-bold" >Hand crafted to perfection</h2>
         <div class="body-1 mt-4">Our Bike Central at Copenhagen is responsible for all the production and etc.Our Bike Central at Copenhagen is responsible for all the production and etc.Our Bike Central at Copenhagen is responsible for all the production and etc.</div>
+        
+        <router-link style="" to="/menu">See our products<v-icon color="#bbbbbb"></v-icon></router-link>
       </v-flex>
       
     </v-layout>
@@ -41,7 +43,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Bevan|Big+Shoulders+Text|Raleway:800&display=swap');
 @font-face {
   font-family: Arial, Helvetica, sans-serif ;
@@ -49,6 +51,7 @@ export default {
 }
 #header {
   font-family: 'Big Shoulders Text'!important;
+
 }
 .info_box .flex div {
 

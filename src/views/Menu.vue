@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-row>
-      <v-col offset-md="1" md="5">
-        <h1>Menu items</h1>
-        <div class="pa-2" id="info">
+ 
+        <h1 id="head" class="display-4 ">Our Products</h1>
+        <!-- <div class="pa-2" id="info">
           <v-simple-table id="menu-table" >
             <thead>
               <tr>
@@ -33,8 +33,8 @@
             </tbody>
           </v-simple-table>
 
-        </div>
-      </v-col>
+        </div> -->
+
       <!-- <v-col offset-md="1" md="4">
         <h1>Current basket</h1>
         <div class="pa-2" id="info">
@@ -85,6 +85,49 @@
         </div>
       </v-col> -->
     </v-row>
+<v-row>
+ <v-col
+  v-for="item in menuItems"
+  :key="item.name"
+  cols="12"
+  sm="4">
+    <v-card  
+    class="mb-6 mx-auto"
+    max-width="400"
+  >
+    <v-img
+      class="white--text align-end "
+      height="200px"
+      v-bind:src="item.image"
+    >
+      <v-card-title class="" id="card_name">{{ item.name }}</v-card-title>
+    </v-img>
+
+    <v-card-text class="text--primary">
+      <div class="ml-1" id="card_description">{{ item.description}}</div>
+
+      
+    </v-card-text>
+
+    <v-card-actions>
+      <div class="ml-3 title" id="card_price">Price: {{ item.price }} Dkk</div>
+      <v-spacer></v-spacer>
+      
+      <v-btn
+        color="green"
+        text
+        v-on:click="addToBasket(item)"
+      >
+      
+        Add to basket
+        <v-icon class="px-1">add_box</v-icon>
+      </v-btn>
+
+    </v-card-actions>
+  </v-card> 
+  </v-col>
+</v-row>
+ 
   </v-container>
 </template>
 
@@ -200,6 +243,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#head {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 110px;
+  font-family: 'Big Shoulders Text'!important;
+  font-weight: 600;
+}
+#card_name {
+  padding-bottom: 50px;
+  height: 60px;
+  background-color: #00000071;
+}
+#card_description {
+  font-style: italic;
+  color: #888888;
+}
+#card_price {
+  
+}
 .col h1 {
   @include infobox_mixin(
     5px,
@@ -208,7 +270,6 @@ export default {
     5px,
     map-get($colorz, white)
   );
-  //I kinda got out of the previous struggles but I couldn't solve this. this is the  error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   font-weight: bold;
   text-transform: uppercase;
   font-size: 16px;
@@ -247,5 +308,10 @@ tr td {
 }
 #basket_checkout p:first-child {
   line-height: 2px;
+}
+@media only screen and (max-width: 600px) {
+  #head {
+    margin: 0 0 10px 10px!important;
+  }
 }
 </style>

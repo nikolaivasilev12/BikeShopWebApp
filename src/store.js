@@ -20,7 +20,7 @@ export default new Vuex.Store({
     addCheckoutItem: (state, basketItems) => {
       dbOrders.add({
         orderNumber: 2,
-        status: "not started",
+        status: "incomplete",
         orderLines:state.basketItems
       })
     },
@@ -67,7 +67,8 @@ export default new Vuex.Store({
       })
       state.menuItems = menuItems
       }
-    )},
+    )
+  },
   setOrderItems: state => { 
     let orderItems = []
     dbOrders.onSnapshot((snapshotItems) => {

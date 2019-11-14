@@ -1,8 +1,8 @@
 <template>
     <v-container style="max-width:700px; margin-top:150px;">
         <v-row>
-            <v-col offset-md="3" md="6" xs="12">
-                <h1>
+            <v-col id="head" offset-md="3" md="6" xs="12">
+                <h1 class="display-1" >
                     Administrator login
                 </h1>
                 <div id="info" cl>
@@ -64,7 +64,7 @@ import 'firebase/firestore'
                 show1:false,
                 rules: {
                     required: value => !!value || 'Required.',
-                    min: v => v.length >= 6 || 'Min 8 characters',
+                    min: v => v.length >= 6 || 'Min 6 characters',
                     emailMatch: () => ('The email and password you entered don\'t match'),
                 }
                 
@@ -102,5 +102,9 @@ import 'firebase/firestore'
 <style lang="scss" scoped>
  #info {
      padding: 20px;
+ }
+ #head h1{
+    border-style: none!important;
+    font-family: 'Big Shoulders Text'!important;
  }
 </style>

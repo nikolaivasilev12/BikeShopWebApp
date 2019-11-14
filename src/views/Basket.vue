@@ -1,6 +1,8 @@
 <template>
-     <v-col offset-md="1" md="4">
-        <h1>Current basket</h1>
+ <v-container>
+    <v-row>
+     <v-col style="margin-top:100px;" offset-md="1" md="4">
+        <h1 class="pl-5 text-left display-1">Current basket</h1>
         <div class="pa-2" id="info">
           <v-simple-table id="menu-table" v-if="basket.length > 0">
             <thead>
@@ -25,14 +27,15 @@
             </tbody>
           </v-simple-table>
           <v-simple-table v-else>
-            <p>The basket is empty</p>
+            <p class="mt-2 ml-5 font-weight-bold">Your basket is empty</p>
           </v-simple-table>
           <v-divider></v-divider>
           <v-row id="basket_checkout" class="mt-4 ml-2" style="margin=0;">
             <v-col>
               <p>Subtotal:</p>
-              <p>Delivery:</p>
-              <p>Total amount:</p>
+              <p id="delivery">Delivery:</p>
+              <p >Total amount:</p>
+              <span id="span_delivery" >Free delivery on orders over 100 Dkk</span>
             </v-col>
             <v-col class="text-right mr-4">
               <p>{{ subtotal }} $</p>
@@ -42,12 +45,14 @@
               </p>
             </v-col>
           </v-row>
-          <v-row style="margin=0;">
+          <v-row style="">
             <v-spacer></v-spacer>
             <v-btn class="mr-5 mb-1" color="#cccccc" v-on:click="addCheckoutItem(),emptyBasket()">Checkout</v-btn>
           </v-row>
         </div>
       </v-col>
+        </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -144,6 +149,9 @@ export default {
     delivery() {
       var deliveryCost = 0;
       if (this.subtotal > 100) {
+        deliveryCost = "0";
+      }
+      else if (this.subtotal === 0) {
         deliveryCost = 0;
       }
       else {
@@ -162,5 +170,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+#span_delivery {
+  color: #666666b4;
+}
+.col h1 {
+  border-style: none;
+  font-family:'Big Shoulders Text'!important;
+}
 
 </style>
