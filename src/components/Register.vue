@@ -163,7 +163,7 @@ import firebase from "firebase";
 export default {
   data() {
     return {
-    show1:false,
+    // show1:false,
         rules: {
             required: value => !!value || 'Required.',
             min: v => v.length >= 6 || 'Min 6 characters',
@@ -176,9 +176,12 @@ export default {
         password: ""
       },
       error: null
+      
     };
   },
   methods: {
+
+
     submit() {
       firebase
         .auth()
@@ -188,12 +191,33 @@ export default {
             .updateProfile({
               displayName: this.form.name
             })
-            .then(() => {});
+            .then(() => {
+              alert('You have been registered')
+            });
         })
         .catch(err => {
           this.error = err.message;
         });
     }
+  
+      // async submit() {
+      //   try {
+      //     var {
+      //       user
+      //     } = await firebase
+      //       .auth()
+      //       .createUserWithEmailAndPassword(this.email, this.password);
+      //     // signout
+      //     firebase
+      //       .auth()
+      //       .signOut()
+      //       .then(user => {
+      //         this.$router.push("/login");
+      //       });
+      //   } catch (error) {
+      //     console.log(error.message);
+      //   }
+      // }
   }
 };
 </script>

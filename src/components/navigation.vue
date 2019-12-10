@@ -40,7 +40,7 @@
         <v-btn  v-if="currentUser" style="margin:50px 0 0 65px; color:white;" medium class="" tag="li" color="red" @click.prevent="signOut()">Sign Out</v-btn>
       </ul>
     </v-navigation-drawer>
-   
+   <!--  v-if="item.meta === 'auth' && $auth.admin() === true" -->
 
     <v-app-bar height="100px;" color="#cccccc" flat app>
       <v-app-bar-nav-icon class="ml-3" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -74,6 +74,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 export default {
   data: () => ({
     drawer: null
+    
   }),
   methods: {
     signOut() {
@@ -86,6 +87,20 @@ export default {
     }
   },
   computed: {
+    customer() {
+      firebase.auth().currentUser.getIdTokenResult()
+        .then(function ({
+          claims
+        }) 
+        {
+        if (claims.customer) {
+          return customer = true;
+        }
+      })
+    },
+     admin() {
+
+    },
     guest() {
       return this.guest
     },

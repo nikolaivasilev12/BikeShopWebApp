@@ -67,36 +67,68 @@ import 'firebase/firestore'
                     min: v => v.length >= 6 || 'Min 6 characters',
                     emailMatch: () => ('The email and password you entered don\'t match'),
                 }
-                
-            }
+            };
+        },
+        
+        created() {
+            firebase.auth().onAuthStateChanged(userAuth => {
+                if (userAuth) {
+                    firebase
+                        .auth()
+                        .currentUser.getIdTokenResult()
+                        .then(tokenResult => {
+                            this.$router.replace('/admin');
+                            console.log(tokenResult.claims);
+                        });
+                }
+            });
         },
         methods: {
-            signIn() {
-                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
-                    this.$router.replace('/admin')
-                })
-                .catch(function(error){
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    if (errorCode === 'auth/wrong-password') {
-                        alert ("wrong password")
-                    }
-                    else {
-                        alert (errorMessage)
-                    }
-                    console.log(error)
-                })
-            },
-            signOut() {
-                firebase.auth().signOut().then(() => {
-                    alert('Logged Out')
-                    this.$router.replace('/')
-                }).catch(error => {
-                    alert(error)
-                })
+
+        async signIn() {
+            try {
+                const {
+                    user
+                } = await firebase
+                    .auth()
+                    .signInWithEmailAndPassword(this.email, this.password)
+                    .then(data => {
+                        this.$router.replace('/menu');
+                    });
+            } catch (error) {
+                console.log(error);
             }
-        },
+        }
     }
+    };
+
+            
+    //         signIn() {
+    //             firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
+    //                 this.$router.replace('/admin')
+    //             })
+    //             .catch(function(error){
+    //                 var errorCode = error.code;
+    //                 var errorMessage = error.message;
+    //                 if (errorCode === 'auth/wrong-password') {
+    //                     alert ("wrong password")
+    //                 }
+    //                 else {
+    //                     alert (errorMessage)
+    //                 }
+    //                 console.log(error)
+    //             })
+    //         },
+    //         signOut() {
+    //             firebase.auth().signOut().then(() => {
+    //                 alert('Logged Out')
+    //                 this.$router.replace('/')
+    //             }).catch(error => {
+    //                 alert(error)
+    //             })
+    //         }
+    //     },
+    // }
 </script>
 
 <style lang="scss" scoped>

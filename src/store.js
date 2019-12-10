@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { dbMenuAdd } from '../firebase'
 import { dbOrders } from '../firebase'
-
-
+import { dbRoles } from '../firebase'
 import firebase from 'firebase'
 import 'firebase/firestore'
 
