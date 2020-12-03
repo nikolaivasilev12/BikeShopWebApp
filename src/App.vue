@@ -28,7 +28,6 @@ export default {
 };
 </script>
 <style lang="scss" >
-//Stranges
 //Strange, cause here it works!
 main {
   background-image: url("./assets/img/background.png");
